@@ -20,3 +20,18 @@ export function deleteTodo(id) {
         id
     };
 }
+
+export function toggleTodo(id) {
+    return {
+        type: TOGGLE_TODO,
+        id
+    };
+}
+
+export function editTodo(id, title) {
+    return {
+        type: EDIT_TODO,
+        id,
+        title
+    };
+}
