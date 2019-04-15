@@ -3,18 +3,18 @@ import React from 'react';
 import Stats from './stats';
 import Stopwatch from './stopwatch';
 
-function Header(props) {
-    return (
-        <header>
-            <Stats todos={props.todos} />
-            <h1>Redux Todo</h1>
-            <Stopwatch />
-        </header>
-    );
-}
+class Header extends React.Component {
+	render() {
+		const todos = props.store.getState();
 
-Header.propTypes = {
-    todos: React.PropTypes.array.isRequired
-};
+		return (
+			<header>
+				<Stats todos={todos} />
+				<h1>Redux Todo</h1>
+				<Stopwatch />
+			</header>
+		);
+	}
+}
 
 export default Header;

@@ -12,7 +12,15 @@ class List extends React.Component {
 		this.handleDelete = this.handleDelete.bind(this);
 		this.handleToggle = this.handleToggle.bind(this);
 		this.handleEdit = this.handleEdit.bind(this);
-	}
+    }
+    
+    componentDidMount() {
+        this.unsubscribe = this.store.subscribe(() => this.forceUpdate());
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
 
 	handleDelete(id) {
 		this.store.dispatch(deleteTodo(id));
@@ -47,17 +55,6 @@ class List extends React.Component {
 	}
 }
 
-List.propTypes = {
-	todos: React.PropTypes.arrayOf(
-		React.PropTypes.shape({
-			id: React.PropTypes.number.isRequired,
-			title: React.PropTypes.string.isRequired,
-			completed: React.PropTypes.bool.isRequired,
-		})
-	).isRequired,
-	onDelete: React.PropTypes.func.isRequired,
-	onToggle: React.PropTypes.func.isRequired,
-	onEdit: React.PropTypes.func.isRequired,
-};
+
 
 export default List;
