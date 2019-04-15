@@ -17,4 +17,4 @@ const store = createStore(reducer, todos);
 // store.dispatch(deleteTodo(5));
 
 
-ReactDOM.render(<App initialData={todos} />, document.getElementById('root'));
+ReactDOM.render(<App store={store} />, document.getElementById('root'));

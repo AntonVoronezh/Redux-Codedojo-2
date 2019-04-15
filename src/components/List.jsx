@@ -2,7 +2,7 @@ import React from 'react';
 
 import Todo from './Todo';
 
-function List(props) {
+class List extends React.Component {
     return (
         <section className="todo-list">
             {props.todos.map(todo =>

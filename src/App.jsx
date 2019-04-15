@@ -3,16 +3,18 @@ import React from 'react';
 import Header from './components/Header';
 import List from './components/List';
 import Form from './components/Form';
+import {addTodo, deleteTodo, editTodo, toggleTodo} from './actions/index.js'
 
 class App extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            todos: this.props.initialData
-        };
+        // this.state = {
+        //     todos: this.props.initialData
+        // };
 
-        this._nextId = this.state.todos.length;
+        this.store = this.props.store;
+        // this._nextId = this.state.todos.length;
         
         this.handleAdd = this.handleAdd.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
@@ -20,60 +22,36 @@ class App extends React.Component {
         this.handleEdit = this.handleEdit.bind(this);
     }
 
-    nextId() {
-        return this._nextId += 1;
+    componentDidMount() {
+        this.unsubscribe = this.store.subscribe(() => this.forceUpdate());
     }
 
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
+    // nextId() {
+    //     return this._nextId += 1;
+    // }
+
     handleAdd(title) {
-        const todo = {
-            id: this.nextId(),
-            title,
-            completed: false
-        };
-
-        const todos = [...this.state.todos, todo];
-
-        this.setState({ todos });
+        this.store.dispatch(addTodo(title));
     }
 
     handleDelete(id) {
-        const index = this.state.todos.findIndex(todo => todo.id === id);
-        const todos = [
-            ...this.state.todos.slice(0, index),
-            ...this.state.todos.slice(index + 1)
-        ];
-        
-        this.setState({ todos });
+        this.store.dispatch(deleteTodo(id));
     }
 
     handleToggle(id) {
-        const todos = this.state.todos.map(todo => {
-            if (todo.id !== id) {
-                return todo;
-            }
-
-            return Object.assign({}, todo, {
-                completed: !todo.completed
-            });
-        });
-
-        this.setState({ todos });
+        this.store.dispatch(toggleTodo(id));
     }
 
     handleEdit(id, title) {
-        if (todo.id !== id) {
-            return todo;
-        }
-
-        return Object.assign({}, todo, {
-            title: title
-        });
-
-        this.setState({ todos });
+        this.store.dispatch(editTodo(id, title));
     }
 
     render() {
-        const todos = this.state.todos;
+        const todos = this.store.getState();
 
         return (
             <main>
@@ -92,12 +70,6 @@ class App extends React.Component {
     }
 }
 
-App.propTypes = {
-    initialData: React.PropTypes.arrayOf(React.PropTypes.shape({
-        id: React.PropTypes.number.isRequired,
-        title: React.PropTypes.string.isRequired,
-        completed: React.PropTypes.bool.isRequired
-    })).isRequired
-};
+
 
 export default App;
