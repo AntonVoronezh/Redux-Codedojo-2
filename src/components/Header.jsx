@@ -4,8 +4,16 @@ import Stats from './stats';
 import Stopwatch from './stopwatch';
 
 class Header extends React.Component {
+    componentDidMount() {
+        this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate());
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
 	render() {
-		const todos = props.store.getState();
+		const todos = this.props.store.getState();
 
 		return (
 			<header>

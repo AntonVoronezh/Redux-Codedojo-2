@@ -4,31 +4,17 @@ import Header from './components/Header';
 import List from './components/List';
 import Form from './components/Form';
 
+function App({ store }) {
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
+	return (
+		<main>
+			<Header store={store} />
 
-        this.store = this.props.store;
+			<List store={store} />
 
-    }
-
-
-
-    render() {
-
-        return (
-            <main>
-                <Header store={this.store} />
-
-                <List store={this.store} />
-
-                <Form store={this.store} />
-            </main>
-        );
-    }
+			<Form store={store} />
+		</main>
+	);
 }
-
-
 
 export default App;
