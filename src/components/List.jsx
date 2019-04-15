@@ -1,10 +1,13 @@
 import React from 'react';
 
 import Todo from './Todo';
+import {deleteTodo, editTodo, toggleTodo} from '../actions/index'
 
 class List extends React.Component {
 	constructor(props) {
-		super(props);
+        super(props);
+        
+        this.store = this.props.store;
 
 		this.handleDelete = this.handleDelete.bind(this);
 		this.handleToggle = this.handleToggle.bind(this);
@@ -24,17 +27,19 @@ class List extends React.Component {
 	}
 
 	render() {
+        const todos = this.store.getState();
+
 		return (
 			<section className="todo-list">
-				{props.todos.map(todo => (
+				{todos.map(todo => (
 					<Todo
 						key={todo.id}
 						id={todo.id}
 						title={todo.title}
 						completed={todo.completed}
-						onDelete={props.onDelete}
-						onToggle={props.onToggle}
-						onEdit={props.onEdit}
+						onDelete={this.handleDelete}
+						onToggle={this.handleToggle}
+						onEdit={this.handleEdit}
 					/>
 				))}
 			</section>

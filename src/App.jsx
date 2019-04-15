@@ -3,7 +3,7 @@ import React from 'react';
 import Header from './components/Header';
 import List from './components/List';
 import Form from './components/Form';
-import {addTodo, deleteTodo, editTodo, toggleTodo} from './actions/index.js'
+import {addTodo} from './actions/index.js'
 
 class App extends React.Component {
     constructor(props) {
@@ -45,12 +45,7 @@ class App extends React.Component {
             <main>
                 <Header todos={todos} />
 
-                <List
-                    todos={todos}
-                    onDelete={this.handleDelete}
-                    onToggle={this.handleToggle}
-                    onEdit={this.handleEdit}
-                />
+                <List store={this.store} />
 
                 <Form onAdd={this.handleAdd} />
             </main>
