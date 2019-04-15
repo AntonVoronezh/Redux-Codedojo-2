@@ -17,9 +17,7 @@ class App extends React.Component {
         // this._nextId = this.state.todos.length;
         
         this.handleAdd = this.handleAdd.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
-        this.handleToggle = this.handleToggle.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
+
     }
 
     componentDidMount() {
@@ -38,17 +36,7 @@ class App extends React.Component {
         this.store.dispatch(addTodo(title));
     }
 
-    handleDelete(id) {
-        this.store.dispatch(deleteTodo(id));
-    }
 
-    handleToggle(id) {
-        this.store.dispatch(toggleTodo(id));
-    }
-
-    handleEdit(id, title) {
-        this.store.dispatch(editTodo(id, title));
-    }
 
     render() {
         const todos = this.store.getState();
